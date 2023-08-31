@@ -44,35 +44,35 @@ d3.json(url).then(function(data){
   //add the layer group to the map
   earthquakes.addTo(myMap);
 
-//create a legend control
-let legend = L.control({position: 'bottomright'});
+// create a legend control
+let legend = L.control({ position: 'bottomright' });
 
-//add the legend to the map
+// add the legend to the map
 legend.onAdd = function () {
   let div = L.DomUtil.create('div', 'info legend'),
       depths = [-10, 10, 30, 50, 70, 90],
       labels = [];
 
-  //generate a label with a colored square for each interval
+  // generate a label with a colored square for each interval
   for (let i = 0; i < depths.length; i++) {
-    labels.push(
-        '<i style="background:' + getColor(depths[i] + 1) + '"></i> ' +
-        depths[i] + (depths[i + 1] ? '&ndash;' + depths[i + 1] + '<br>' : '+')
-  );
-}
-div.innerHTML=labels.join('');
+    div.innerHTML +=
+      '<i style="background:' + getColor(depths[i] + 1) + '"></i> ' +
+      depths[i] + (depths[i + 1] ? '&ndash;' + depths[i + 1] + '<br>' : '+')+'<br';
+    }
+    
 
-return div;
+  return div;
 };
-  //function to get the color based on the depth of the earthquake
-  function getColor(d) {
-    return d > 90 ? '#800026' :
-           d > 70 ? '#BD0026' :
-           d > 50 ? '#E31A1C' :
-           d > 30 ? '#FC4E2A' :
-           d > 10 ? '#FD8D3C' :
-           d > -10 ? '#FEB24C':
-           '#FFFFCC';
+
+// function to get the color based on the depth of the earthquake
+function getColor(d) {
+  return d > 90 ? '#800026' :
+         d > 70 ? '#BD0026' :
+         d > 50 ? '#E31A1C' :
+         d > 30 ? '#FC4E2A' :
+         d > 10 ? '#FD8D3C' :
+         d > -10 ? '#FEB24C' :
+         '#FFFFCC';
 }
 
 legend.addTo(myMap);
